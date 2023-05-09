@@ -1,0 +1,16 @@
+sudo xbps-install-Suv
+sudo xbps-install libgda-devel libpng-devel crypto++-devel gd-devel libupnp-devel gettext-devel geoip-devel binutils-devel libnotify-devel libSM-devel patch gdk-pixbuf-devel pango-devel atk-devel glib-devel automake autoconf libtool boost-devel ccache git wxWidgets-devel wxWidgets-common pkg-config
+
+git clone https://github.com/amule-project/amule.git
+cd amule
+./autogen.sh
+./configure --prefix=/usr --disable-debug --enable-optimize --with-denoise-level=3 --enable-upnp --enable-geoip --enable-nls --enable-amule-gui --enable-amule-daemon --enable-amulecmd --enable-webserver --enable-alcc --enable-alc --enable-cas --enable-wxcas --enable-ed2k --enable-mmap --disable-rpath  --enable-fileview --with-boost --enable-ccache
+
+make -j$(nproc) 
+
+make install DESTDIR=$HOME/amule_compiled
+cd ..
+
+strip amule_compiled/
+
+xbps-create -A "x86_64" -n "amule-git-ge26d06a6e_2" -s "amule-git-ge26d06a6e_2"  -D  "wxWidgets>=3.0.5.1 libupnp>=1.14.12 libgeoip>=1.6.12 crypto++>=8.3.0 libnotify>=0.8.2 libboost_system>=1.81.0"  $HOME/amule_compiled
