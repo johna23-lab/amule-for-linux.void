@@ -1,0 +1,25 @@
+# Template file for 'amule'
+pkgname=amule
+version=rev.ge26d06a.gtk3
+revision=1
+wrksrc=amule-master
+build_style=gnu-configure
+configure_args="--prefix=/usr --disable-debug --enable-optimize --with-denoise-level=3 --enable-upnp --enable-geoip --enable-nls --enable-amule-gui --enable-amule-daemon --enable-amulecmd --enable-webserver --enable-alcc --enable-alc --enable-cas --enable-wxcas --enable-ed2k --enable-mmap --disable-rpath  --enable-fileview --with-boost --enable-ccache --with-wx-config=/usr/bin/wx-config-gtk3"
+hostmakedepends="tar libgda-devel libpng-devel crypto++-devel gd-devel libupnp-devel gettext-devel geoip-devel binutils-devel libnotify-devel libSM-devel patch gdk-pixbuf-devel pango-devel atk-devel glib-devel automake autoconf libtool boost-devel ccache wxWidgets-common pkg-config wxWidgets-gtk3-devel"
+makedepends="boost-devel zlib-devel wxWidgets-gtk3-devel gd-devel geoip-devel crypto++-devel"
+depends="wxWidgets-gtk3-devel gd-devel geoip-devel crypto++-devel libboost_system libupnp"
+short_desc="Emule-like client for the eD2k and Kademlia networks"
+maintainer="hazayan <hazayan@hotmail.com>, modified by JOHNA23-LAB https://github.com/johna23-lab/amule-for-linux.void"
+license="GPL-2.0-or-later"
+homepage="https://github.com/amule-project/amule"
+distfiles="https://github.com/amule-project/amule/archive/master.tar.gz"
+checksum="7a901723bbf7644ca18563024639656fc60a5e5c20321a7dda599b5719b329b2"
+
+pre_configure() {
+	./autogen.sh
+}
+
+do_install() {
+	vbin src/utils/fileview/mulefileview
+	make DESTDIR=${DESTDIR} install
+}
