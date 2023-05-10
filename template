@@ -1,6 +1,6 @@
 # Template file for 'amule'
 pkgname=amule
-version=rev.ge26d06a.gtk3
+version=git.ge26d06a.gtk3
 revision=1
 wrksrc=amule-master
 build_style=gnu-configure
